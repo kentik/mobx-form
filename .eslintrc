@@ -1,0 +1,57 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["airbnb", "prettier", "prettier/react"],
+  "plugins": ["prettier"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    }
+  },
+  "env": {
+    "node": true,
+    "browser": true
+  },
+  "globals": {
+    "window": true,
+    "document": true,
+    "localStorage": true
+  },
+  "rules": {
+    "max-len": [
+      1,
+      200,
+      2,
+      {
+        "ignoreComments": true
+      }
+    ],
+    "no-console": ["error", { "allow": ["info", "warn", "error"] }],
+    "react/forbid-prop-types": 0,
+    "react/prop-types": 0,
+    "react/prefer-stateless-function": 0,
+    "global-require": 0,
+    "no-return-assign": 0,
+    "class-methods-use-this": 0,
+    "comma-dangle": ["error", "never"],
+    "semi": ["error", "always"],
+    "jsx-a11y/label-has-for": 0,
+    "jsx-a11y/anchor-is-valid": 0,
+    "jsx-a11y/no-autofocus": 0,
+    "one-var": ["error", "never"],
+    "quotes": ["error", "single", { "avoidEscape": true }],
+    "prettier/prettier": [
+      "error",
+      {
+        "useTabs": false,
+        "printWidth": 120,
+        "tabWidth": 2,
+        "singleQuote": true,
+        "trailingComma": "none",
+        "bracketSpacing": true,
+        "jsxBracketSameLine": false,
+        "semi": true
+      }
+    ]
+  }
+}
