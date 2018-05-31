@@ -128,7 +128,7 @@ class FieldState {
     let value;
 
     if (e && e.target) {
-      value = e.target.value;
+      ({ value } = e.target);
     } else {
       value = e;
     }

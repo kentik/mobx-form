@@ -7,5 +7,10 @@ import ArrayFieldState from './state/ArrayFieldState';
 import FlatArrayFieldState from './state/FlatArrayFieldState';
 
 export default {
-  Form, formConsumer, FormState, FieldState, ArrayFieldState, FlatArrayFieldState
+  Form,
+  formConsumer,
+  FormState,
+  FieldState,
+  ArrayFieldState,
+  FlatArrayFieldState
 };

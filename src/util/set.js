@@ -1,6 +1,6 @@
 export default function set(object, field, value) {
   if (!object || !field) {
-    return null;
+    return;
   }
 
   const parts = field.split('.');
