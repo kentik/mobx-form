@@ -177,7 +177,6 @@ function _initializerWarningHelper(descriptor, context) {
 var ID_COUNTER = 0;
 
 var FieldState = (_class = function () {
-  // TODO: change this to be `key`
   function FieldState(form, config) {
     _classCallCheck(this, FieldState);
 
@@ -222,7 +221,7 @@ var FieldState = (_class = function () {
 
     _initDefineProp(this, 'setFieldStates', _descriptor17, this);
 
-    this._id = ++ID_COUNTER;
+    this.key = ++ID_COUNTER;
     this.form = form;
     this.initialConfig = config;
 
@@ -1120,6 +1119,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = set;
+/**
+ * Simple version of _.set() to avoid the mostly useless dependency
+ */
 function set(object, field, value) {
   if (!object || !field) {
     return;
@@ -1150,6 +1152,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = get;
+/**
+ * Simple version of _.get() to avoid the mostly useless dependency
+ */
 function get(object, field) {
   if (!object || !field) {
     return null;
