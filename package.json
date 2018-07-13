@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
-  "module": "src/index.js",
+  "browser": "dist/index.js",
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "lint": "eslint -c .eslintrc \"src/**/*.js\"",
     "lint:fix": "eslint -c .eslintrc \"src/**/*.js\" --fix"
   },
   "author": "Kentik Technologies",
-  "license": "MIT",
+  "license": "Apache 2",
   "dependencies": {},
   "devDependencies": {
     "babel-core": "^6.26.0",
