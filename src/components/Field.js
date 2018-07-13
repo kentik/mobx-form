@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { action, runInAction } from 'mobx';
+import { runInAction } from 'mobx';
 import { observer } from 'mobx-react';
 import classNames from 'classnames';
 
@@ -10,11 +10,13 @@ import ValidationErrorsOrHelpText from './ValidationErrorsOrHelpText';
 @observer
 @formConsumer
 class Field extends Component {
-  state = {
-    field: null
+  static defaultProps = {
+    fieldStyle: { width: '100%' },
+    labelAlign: 'top',
+    showHelpText: true,
+    showLabel: true
   };
 
-  @action
   static getDerivedStateFromProps(nextProps) {
     const { field: fieldProp, form, name, rules, placeholder, options, label } = nextProps;
 
@@ -41,6 +43,10 @@ class Field extends Component {
     return { field };
   }
 
+  state = {
+    field: null
+  };
+
   /**
    *
    * Field doesn't (and shouldn't) need to trigger a re-render. The underlying Input components
@@ -66,48 +72,45 @@ class Field extends Component {
     );
   }
 
+  handleChange = e => {
+    const { onChange } = this.props;
+    const { field } = this.state;
+
+    const previousValue = field.getValue();
+    field.onChange(e);
+
+    if (onChange) {
+      onChange(field, field.value, previousValue);
+    }
+  };
+
   render() {
     const {
       form,
       autoFocus,
       className,
       children,
-      fieldStyle = { width: '100% ' },
+      fieldStyle,
       flex,
       isEditing,
       helpText,
       hidden,
       inputStyle,
       inputGroupClassName,
-      labelAlign = 'top',
+      labelAlign,
       labelStyle,
       options,
-      onChange,
-      showLabel = true,
-      showHelpText = true,
+      showLabel,
+      showHelpText,
       toggleEditing,
-      transferProps = true,
       width,
       placeholder
     } = this.props;
     const { field } = this.state;
 
     const labelInline = labelAlign !== 'top';
-    const { permissions, model } = form;
-    const isNew = model ? model.isNew : true;
-    const fieldType = children.type.displayName;
 
-    let { disabled, readOnly } = this.props;
-    let isSummary = false;
-
-    if (isNew) {
-      disabled = disabled || !permissions.create;
-      readOnly = readOnly || !permissions.create;
-    } else {
-      disabled = disabled || !permissions.edit;
-      readOnly = readOnly || !permissions.edit;
-      isSummary = ['Input', 'Textarea'].includes(fieldType);
-    }
+    const { disabled, readOnly } = this.props;
 
     const showError = field.hasError && (form.options.showPristineErrors || !field.pristine);
     const shouldShowHelpText = showHelpText !== false && field.showHelpText !== false;
@@ -130,46 +133,26 @@ class Field extends Component {
 
     const style = { width, flex, display: hidden ? 'none' : undefined };
 
-    const onChangeWrapper = e => {
-      const previousValue = field.getValue();
-      field.onChange(e);
-
-      if (onChange) {
-        onChange(field, field.value, previousValue);
-      }
-    };
-
-    const showField = permissions.edit || (!permissions.edit && !isSummary) || isNew;
-    const showSummary = !permissions.edit && isSummary;
-    let summaryValue = field.getValue() || 'None';
-    summaryValue = field.getValue() === 0 ? 0 : summaryValue;
-
     return (
       <div className={formGroupClass} style={{ ...this.props.style, ...style }}>
         {showLabel &&
           field.label && <Label field={field} showError={showError} labelAlign={labelAlign} style={labelStyle} />}
         <div className="pt-form-content" style={fieldStyle}>
-          {showField && (
-            <div className={transferProps ? inputGroupClass : undefined}>
-              {transferProps &&
-                React.cloneElement(children, {
-                  autoFocus,
-                  disabled,
-                  isEditing,
-                  field,
-                  onChange: onChangeWrapper,
-                  onEditComplete: toggleEditing,
-                  options,
-                  placeholder: fieldPlaceholder,
-                  readOnly,
-                  style: inputStyle
-                })}
-
-              {!transferProps && React.cloneElement(children)}
-              {shouldShowHelpText && <ValidationErrorsOrHelpText field={field} helpText={helpText} />}
-            </div>
-          )}
-          {showSummary && <div>{summaryValue}</div>}
+          <div className={inputGroupClass}>
+            {React.cloneElement(children, {
+              autoFocus,
+              disabled,
+              isEditing,
+              field,
+              onChange: this.handleChange,
+              onEditComplete: toggleEditing,
+              options,
+              placeholder: fieldPlaceholder,
+              readOnly,
+              style: inputStyle
+            })}
+            {shouldShowHelpText && <ValidationErrorsOrHelpText field={field} helpText={helpText} />}
+          </div>
         </div>
       </div>
     );
