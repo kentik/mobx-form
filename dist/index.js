@@ -297,6 +297,7 @@ var FieldState = (_class = function () {
       }
 
       this.value = value;
+      this.form.invalidate('');
       this.validateWithDebounce({ removePristineState: true });
     }
   }, {
@@ -319,6 +320,11 @@ var FieldState = (_class = function () {
       validator.check();
 
       this.errors = validator.errors.get(this.name);
+    }
+  }, {
+    key: 'setServerErrors',
+    value: function setServerErrors(errors) {
+      this.errors = errors;
     }
   }, {
     key: 'getProps',
@@ -489,7 +495,7 @@ var FieldState = (_class = function () {
       _this7.form.validate();
     };
   }
-}), _applyDecoratedDescriptor(_class.prototype, 'setValue', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'setValue'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'onChange', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'onChange'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'dirty', [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, 'dirty'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'hasError', [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, 'hasError'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'valid', [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, 'valid'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'validate', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'validate'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'remove', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'remove'), _class.prototype)), _class);
+}), _applyDecoratedDescriptor(_class.prototype, 'setValue', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'setValue'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'onChange', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'onChange'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'dirty', [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, 'dirty'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'hasError', [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, 'hasError'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'valid', [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, 'valid'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'validate', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'validate'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'setServerErrors', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'setServerErrors'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'remove', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'remove'), _class.prototype)), _class);
 exports.default = FieldState;
 
 /***/ }),

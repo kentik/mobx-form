@@ -134,6 +134,7 @@ class FieldState {
     }
 
     this.value = value;
+    this.form.invalidate('');
     this.validateWithDebounce({ removePristineState: true });
   }
 
@@ -174,6 +175,11 @@ class FieldState {
     validator.check();
 
     this.errors = validator.errors.get(this.name);
+  }
+
+  @action
+  setServerErrors(errors) {
+    this.errors = errors;
   }
 
   getProps() {
