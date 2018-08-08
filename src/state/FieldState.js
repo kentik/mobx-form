@@ -1,5 +1,5 @@
 import Validator from 'validatorjs';
-import { action, computed, decorate, observable, toJS } from 'mobx';
+import { action, computed, set, observable, toJS } from 'mobx';
 
 import isEqual from '../util/isEqual';
 import getInitialValue from '../util/getInitialValue';
@@ -37,7 +37,7 @@ class FieldState {
     delete this.initialConfig.adjacentFields;
 
     // this extends this with initialConfig, where all keys become observables #FYI
-    decorate(this, this.initialConfig);
+    set(this, this.initialConfig);
 
     this.init(config.value);
   }
@@ -60,7 +60,7 @@ class FieldState {
 
   @action
   init(value) {
-    decorate(this, this.initialConfig);
+    set(this, this.initialConfig);
 
     const initialValue = getInitialValue({ value, defaultValue: this.defaultValue });
 
