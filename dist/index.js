@@ -230,7 +230,7 @@ var FieldState = (_class = function () {
     delete this.initialConfig.adjacentFields;
 
     // this extends this with initialConfig, where all keys become observables #FYI
-    (0, _mobx.extendObservable)(this, this.initialConfig);
+    (0, _mobx.decorate)(this, this.initialConfig);
 
     this.init(config.value);
   } // If it's part of an array field
@@ -257,7 +257,7 @@ var FieldState = (_class = function () {
   }, {
     key: 'init',
     value: function init(value) {
-      (0, _mobx.extendObservable)(this, this.initialConfig);
+      (0, _mobx.decorate)(this, this.initialConfig);
 
       var initialValue = (0, _getInitialValue2.default)({ value: value, defaultValue: this.defaultValue });
 
