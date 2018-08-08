@@ -4,7 +4,11 @@ import { observer } from 'mobx-react';
 const ValidationErrorsOrHelpText = props => {
   const { field, helpText, calloutStyle } = props;
 
-  const showError = field.hasError && (field.form.options.showPristineErrors || !field.pristine);
+  const showError = field.hasError && (
+    field.form.options.showPristineErrors
+    || !field.pristine
+    || field.form.submitted
+  );
 
   if (showError || helpText || field.helpText) {
     const helperTextArray = showError ? field.errors : [helpText || field.helpText];
