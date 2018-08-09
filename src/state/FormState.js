@@ -8,6 +8,7 @@ class FormState {
   @observable fieldStates;
   @observable error;
   @observable errors = [];
+  @observable submitted = false;
 
   onSubmit = () => console.warn('No onSubmit() provided');
   onChange = () => {};
@@ -88,6 +89,7 @@ class FormState {
 
   @action
   reset() {
+    this.submitted = false;
     this.fieldStates.forEach(field => field.reset());
 
     this.validate();
@@ -261,6 +263,7 @@ class FormState {
   @action
   submit(onSubmit) {
     this.error = null;
+    this.submitted = true;
 
     const submitFn = onSubmit || this.onSubmit;
     submitFn(this, this.getValues());
@@ -339,6 +342,7 @@ class FormState {
 
   @action
   resetFormState = () => {
+    this.submitted = false;
     this.fieldStates = [];
     this.fieldConfigs = [];
     this.fieldGroups = {};

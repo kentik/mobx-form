@@ -1,5 +1,5 @@
 import Validator from 'validatorjs';
-import { action, computed, extendObservable, observable, toJS } from 'mobx';
+import { action, computed, set, observable, toJS } from 'mobx';
 
 import isEqual from '../util/isEqual';
 import getInitialValue from '../util/getInitialValue';
@@ -37,7 +37,7 @@ class FieldState {
     delete this.initialConfig.adjacentFields;
 
     // this extends this with initialConfig, where all keys become observables #FYI
-    extendObservable(this, this.initialConfig);
+    set(this, this.initialConfig);
 
     this.init(config.value);
   }
@@ -60,7 +60,7 @@ class FieldState {
 
   @action
   init(value) {
-    extendObservable(this, this.initialConfig);
+    set(this, this.initialConfig);
 
     const initialValue = getInitialValue({ value, defaultValue: this.defaultValue });
 
@@ -134,6 +134,7 @@ class FieldState {
     }
 
     this.value = value;
+    this.form.invalidate(null);
     this.validateWithDebounce({ removePristineState: true });
   }
 
@@ -174,6 +175,11 @@ class FieldState {
     validator.check();
 
     this.errors = validator.errors.get(this.name);
+  }
+
+  @action
+  setServerErrors(errors) {
+    this.errors = errors;
   }
 
   getProps() {

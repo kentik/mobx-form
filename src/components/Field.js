@@ -112,7 +112,11 @@ class Field extends Component {
 
     const { disabled, readOnly } = this.props;
 
-    const showError = field.hasError && (form.options.showPristineErrors || !field.pristine);
+    const showError = field.hasError && (
+      form.options.showPristineErrors
+      || !field.pristine
+      || field.form.submitted
+    );
     const shouldShowHelpText = showHelpText !== false && field.showHelpText !== false;
     const fieldPlaceholder = field.placeholder || placeholder;
 
