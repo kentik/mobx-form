@@ -38,7 +38,7 @@
   },
   "peerDependencies": {
     "classnames": "^2.2.5",
-    "mobx": "^4.3.0",
+    "mobx": ">= 4.3.0",
     "mobx-react": "^5.1.2",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
