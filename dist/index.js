@@ -297,7 +297,7 @@ var FieldState = (_class = function () {
       }
 
       this.value = value;
-      this.form.invalidate('');
+      this.form.invalidate(null);
       this.validateWithDebounce({ removePristineState: true });
     }
   }, {
